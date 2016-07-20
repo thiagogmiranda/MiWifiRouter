@@ -14,16 +14,36 @@ namespace MiWifiRouter
 {
 	public partial class HotspotForm : Form
 	{
-		private Hotspot HotSpot = new Hotspot();
+		private Hotspot HotSpot;
 
 		public HotspotForm()
 		{
 			InitializeComponent();
 
+			button2.Enabled = false;
+
+			HotSpot = new Hotspot();
+			HotSpot.SearchDevicesCompleted += HotSpot_SearchDevicesCompleted;
+
 			CarregarRedesDisponiveis();
 
 			txtNomeRede.Text = ConfigurationManager.AppSettings["ssid"] ?? string.Empty;
 			txtSenha.Text = ConfigurationManager.AppSettings["password"] ?? string.Empty;
+		}
+
+		private void HotSpot_SearchDevicesCompleted(List<Device> devices)
+		{
+			this.Invoke(new Action(() => {
+				listView1.Clear();
+				foreach (var item in devices)
+				{
+					listView1.Items.Add(new ListViewItem(new string[] {
+					item.IpAddress,
+					item.Hostname,
+					item.MacAddress
+				}));
+				}
+			}));
 		}
 
 		private void CarregarRedesDisponiveis()
@@ -63,6 +83,8 @@ namespace MiWifiRouter
 					HotSpot.ShareWifi(opts);
 
 					DesabilitarComponentes();
+
+					button2.Enabled = true;
 
 					AtualizarStatus("HotSpot iniciado.");
 				}
@@ -157,6 +179,13 @@ namespace MiWifiRouter
 		{
 			this.Show();
 			this.WindowState = FormWindowState.Normal;
+		}
+
+		private void button2_Click(object sender, EventArgs e)
+		{
+			Task.Run(() => {
+				HotSpot.SearchConnectedDevices();
+			});
 		}
 	}
 }

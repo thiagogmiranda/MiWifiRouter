@@ -91,6 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandLine.cs" />
+    <Compile Include="Device.cs" />
     <Compile Include="Hotspot.cs" />
     <Compile Include="HotspotForm.cs">
       <SubType>Form</SubType>

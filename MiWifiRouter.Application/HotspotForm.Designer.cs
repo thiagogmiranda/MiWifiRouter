@@ -40,6 +40,12 @@
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
 			this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+			this.listView1 = new System.Windows.Forms.ListView();
+			this.label4 = new System.Windows.Forms.Label();
+			this.button2 = new System.Windows.Forms.Button();
+			this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.statusStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -106,7 +112,7 @@
 			// 
 			this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblStatus});
-			this.statusStrip1.Location = new System.Drawing.Point(0, 227);
+			this.statusStrip1.Location = new System.Drawing.Point(0, 391);
 			this.statusStrip1.Name = "statusStrip1";
 			this.statusStrip1.Size = new System.Drawing.Size(276, 22);
 			this.statusStrip1.TabIndex = 7;
@@ -128,11 +134,60 @@
 			this.notifyIcon1.Visible = true;
 			this.notifyIcon1.Click += new System.EventHandler(this.notifyIcon1_Click);
 			// 
+			// listView1
+			// 
+			this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3});
+			this.listView1.FullRowSelect = true;
+			this.listView1.GridLines = true;
+			this.listView1.Location = new System.Drawing.Point(15, 251);
+			this.listView1.Name = "listView1";
+			this.listView1.Size = new System.Drawing.Size(246, 97);
+			this.listView1.Sorting = System.Windows.Forms.SortOrder.Descending;
+			this.listView1.TabIndex = 8;
+			this.listView1.UseCompatibleStateImageBehavior = false;
+			// 
+			// label4
+			// 
+			this.label4.AutoSize = true;
+			this.label4.Location = new System.Drawing.Point(12, 235);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(122, 13);
+			this.label4.TabIndex = 9;
+			this.label4.Text = "Dispositivos conectados";
+			// 
+			// button2
+			// 
+			this.button2.Location = new System.Drawing.Point(15, 354);
+			this.button2.Name = "button2";
+			this.button2.Size = new System.Drawing.Size(75, 23);
+			this.button2.TabIndex = 10;
+			this.button2.Text = "Atualizar";
+			this.button2.UseVisualStyleBackColor = true;
+			this.button2.Click += new System.EventHandler(this.button2_Click);
+			// 
+			// columnHeader1
+			// 
+			this.columnHeader1.Text = "IP";
+			// 
+			// columnHeader2
+			// 
+			this.columnHeader2.Text = "Hostname";
+			// 
+			// columnHeader3
+			// 
+			this.columnHeader3.Text = "MAC";
+			// 
 			// HotspotForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(276, 249);
+			this.ClientSize = new System.Drawing.Size(276, 413);
+			this.Controls.Add(this.button2);
+			this.Controls.Add(this.label4);
+			this.Controls.Add(this.listView1);
 			this.Controls.Add(this.statusStrip1);
 			this.Controls.Add(this.button1);
 			this.Controls.Add(this.comboRedes);
@@ -143,7 +198,6 @@
 			this.Controls.Add(this.label1);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MaximizeBox = false;
-			this.MaximumSize = new System.Drawing.Size(292, 288);
 			this.MinimumSize = new System.Drawing.Size(292, 288);
 			this.Name = "HotspotForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -169,6 +223,12 @@
 		private System.Windows.Forms.StatusStrip statusStrip1;
 		private System.Windows.Forms.ToolStripStatusLabel lblStatus;
 		private System.Windows.Forms.NotifyIcon notifyIcon1;
+		private System.Windows.Forms.ListView listView1;
+		private System.Windows.Forms.Label label4;
+		private System.Windows.Forms.Button button2;
+		private System.Windows.Forms.ColumnHeader columnHeader1;
+		private System.Windows.Forms.ColumnHeader columnHeader2;
+		private System.Windows.Forms.ColumnHeader columnHeader3;
 	}
 }
 
