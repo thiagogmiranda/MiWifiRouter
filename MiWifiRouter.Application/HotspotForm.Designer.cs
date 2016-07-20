@@ -115,8 +115,8 @@
 			// lblStatus
 			// 
 			this.lblStatus.Name = "lblStatus";
-			this.lblStatus.Size = new System.Drawing.Size(95, 17);
-			this.lblStatus.Text = "MiWifiRouter 1.0";
+			this.lblStatus.Size = new System.Drawing.Size(104, 17);
+			this.lblStatus.Text = "MiWifiRouter 1.0.1";
 			// 
 			// notifyIcon1
 			// 
@@ -147,7 +147,7 @@
 			this.MinimumSize = new System.Drawing.Size(292, 288);
 			this.Name = "HotspotForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "MiWifiRouter 1.0";
+			this.Text = "MiWifiRouter 1.0.1";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.HotspotForm_FormClosing);
 			this.Resize += new System.EventHandler(this.HotspotForm_Resize);
 			this.statusStrip1.ResumeLayout(false);
