@@ -9,41 +9,90 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Configuration;
+using System.IO;
 
 namespace MiWifiRouter
 {
 	public partial class HotspotForm : Form
 	{
 		private Hotspot HotSpot;
+		private List<Device> Devices;
 
 		public HotspotForm()
 		{
 			InitializeComponent();
 
-			button2.Enabled = false;
-
 			HotSpot = new Hotspot();
 			HotSpot.SearchDevicesCompleted += HotSpot_SearchDevicesCompleted;
+			Devices = new List<Device>();
 
 			CarregarRedesDisponiveis();
 
 			txtNomeRede.Text = ConfigurationManager.AppSettings["ssid"] ?? string.Empty;
 			txtSenha.Text = ConfigurationManager.AppSettings["password"] ?? string.Empty;
+
+			InicializarListViewDispositivos();
+		}
+
+		private void InicializarListViewDispositivos()
+		{
+			listView1.View = View.Tile;
+			listView1.TileSize = new System.Drawing.Size(250, 60);
+
+			listView1.Columns.AddRange(new ColumnHeader[] { new ColumnHeader(), new ColumnHeader(), new ColumnHeader() });
+
+			var imgList = new ImageList();
+			imgList.ImageSize = new System.Drawing.Size(36, 36);
+
+			Bitmap bmpAndroid = new Bitmap(Image.FromFile(Application.StartupPath + "\\Android.png")); // ImageIndex = 0
+			Bitmap bmpComputer = new Bitmap(Image.FromFile(Application.StartupPath + "\\computer.jpg")); // ImageIndex = 0
+
+			ImageHelper helper = new ImageHelper();
+			helper.AddImageToImageList(imgList, bmpAndroid, "android_device");
+			helper.AddImageToImageList(imgList, bmpComputer, "computer_device");
+
+			listView1.LargeImageList = imgList;
 		}
 
 		private void HotSpot_SearchDevicesCompleted(List<Device> devices)
 		{
 			this.Invoke(new Action(() => {
-				listView1.Clear();
+				listView1.Items.Clear();
 				foreach (var item in devices)
 				{
-					listView1.Items.Add(new ListViewItem(new string[] {
-					item.IpAddress,
-					item.Hostname,
-					item.MacAddress
-				}));
+					var listViewItem = new ListViewItem(new string[] {
+						item.Hostname,
+						item.IpAddress,
+						item.MacAddress });
+
+					if (item.Hostname.ToLower().Contains("android"))
+					{
+						listViewItem.ImageIndex = 0; // Android icon
+					}
+					else
+					{
+						listViewItem.ImageIndex = 1; // Computer icon
+					}
+
+					listView1.Items.Add(listViewItem);
+				}
+
+				if (HotSpot.IsSharing)
+				{
+					InicializarTarefaAssincronaProcuraDispositivos();
+				}
+				else
+				{
+					listView1.Clear();
 				}
 			}));
+		}
+
+		private void InicializarTarefaAssincronaProcuraDispositivos()
+		{
+			Task.Factory.StartNew(() => {
+				HotSpot.SearchConnectedDevices();
+			});
 		}
 
 		private void CarregarRedesDisponiveis()
@@ -65,6 +114,8 @@ namespace MiWifiRouter
 			if (HotSpot.IsSharing)
 			{
 				DesabilitarSharing();
+
+				listView1.Items.Clear();
 			}
 			else
 			{
@@ -86,9 +137,9 @@ namespace MiWifiRouter
 
 					DesabilitarComponentes();
 
-					button2.Enabled = true;
-
 					AtualizarStatus("HotSpot iniciado.");
+
+					InicializarTarefaAssincronaProcuraDispositivos();
 				}
 			}
 
@@ -181,13 +232,6 @@ namespace MiWifiRouter
 		{
 			this.Show();
 			this.WindowState = FormWindowState.Normal;
-		}
-
-		private void button2_Click(object sender, EventArgs e)
-		{
-			Task.Run(() => {
-				HotSpot.SearchConnectedDevices();
-			});
 		}
 	}
 }

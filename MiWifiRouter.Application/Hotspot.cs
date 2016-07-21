@@ -29,6 +29,9 @@ namespace MiWifiRouter
 		private INetConnection ToShare;
 		private INetConnection SharePoint;
 
+		private static object syncDeviceSearch = new object();
+		private List<Device> DevicesFound = new List<Device>();
+
 		public void ShareWifi(WifiShareOpts options)
 		{
 				if (!IsSharing)
