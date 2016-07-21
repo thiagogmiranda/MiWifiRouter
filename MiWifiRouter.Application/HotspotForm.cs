@@ -49,7 +49,9 @@ namespace MiWifiRouter
 		private void CarregarRedesDisponiveis()
 		{
 			NetworkInterface[] redes = NetworkInterface.GetAllNetworkInterfaces();
-			redes = redes.Where(rede => rede.OperationalStatus == OperationalStatus.Up).ToArray();
+			redes = redes
+				.Where(rede => rede.OperationalStatus == OperationalStatus.Up && rede.NetworkInterfaceType == NetworkInterfaceType.Ethernet)
+				.ToArray();
 
 			comboRedes.DataSource = redes;
 			comboRedes.DisplayMember = "Name";

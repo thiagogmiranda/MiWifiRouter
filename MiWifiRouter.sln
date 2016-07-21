@@ -5,7 +5,7 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiWifiRouter.Application", "MiWifiRouter.Application\MiWifiRouter.Application.csproj", "{36766AD8-A335-4949-ACD8-20F343BB50E7}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "MiWifiRouter.Installer", "MiWifiRouter.Installer\MiWifiRouter.Installer.vdproj", "{0F816A89-5FE0-41BE-B1D3-25F6CAD0C855}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "MiWifiRouter", "MiWifiRouter\MiWifiRouter.vdproj", "{0F816A89-5FE0-41BE-B1D3-25F6CAD0C855}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
