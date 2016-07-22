@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Configuration;
 using System.IO;
+using System.Reflection;
 
 namespace MiWifiRouter
 {
@@ -18,9 +19,13 @@ namespace MiWifiRouter
 		private Hotspot HotSpot;
 		private List<Device> Devices;
 
+		public bool _closing;
+
 		public HotspotForm()
 		{
 			InitializeComponent();
+
+			this.Text += " " + Assembly.GetEntryAssembly().GetName().Version;
 
 			HotSpot = new Hotspot();
 			HotSpot.SearchDevicesCompleted += HotSpot_SearchDevicesCompleted;
@@ -56,41 +61,46 @@ namespace MiWifiRouter
 
 		private void HotSpot_SearchDevicesCompleted(List<Device> devices)
 		{
-			this.Invoke(new Action(() => {
-				listView1.Items.Clear();
-				foreach (var item in devices)
+			if (!_closing)
+			{
+				this.Invoke(new Action(() =>
 				{
-					var listViewItem = new ListViewItem(new string[] {
+					listView1.Items.Clear();
+					foreach (var item in devices)
+					{
+						var listViewItem = new ListViewItem(new string[] {
 						item.Hostname,
 						item.IpAddress,
 						item.MacAddress });
 
-					if (item.Hostname.ToLower().Contains("android"))
+						if (item.Hostname.ToLower().Contains("android"))
+						{
+							listViewItem.ImageIndex = 0; // Android icon
+						}
+						else
+						{
+							listViewItem.ImageIndex = 1; // Computer icon
+						}
+
+						listView1.Items.Add(listViewItem);
+					}
+
+					if (HotSpot.IsSharing)
 					{
-						listViewItem.ImageIndex = 0; // Android icon
+						InicializarTarefaAssincronaProcuraDispositivos();
 					}
 					else
 					{
-						listViewItem.ImageIndex = 1; // Computer icon
+						listView1.Clear();
 					}
-
-					listView1.Items.Add(listViewItem);
-				}
-
-				if (HotSpot.IsSharing)
-				{
-					InicializarTarefaAssincronaProcuraDispositivos();
-				}
-				else
-				{
-					listView1.Clear();
-				}
-			}));
+				}));
+			}
 		}
 
 		private void InicializarTarefaAssincronaProcuraDispositivos()
 		{
-			Task.Factory.StartNew(() => {
+			Task.Factory.StartNew(() =>
+			{
 				HotSpot.SearchConnectedDevices();
 			});
 		}
@@ -208,6 +218,8 @@ namespace MiWifiRouter
 
 		private void HotspotForm_FormClosing(object sender, FormClosingEventArgs e)
 		{
+			_closing = true;
+
 			if (HotSpot.IsSharing)
 			{
 				DesabilitarSharing();

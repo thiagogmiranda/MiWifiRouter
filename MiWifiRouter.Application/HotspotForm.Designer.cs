@@ -48,7 +48,7 @@
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(12, 73);
+			this.label1.Location = new System.Drawing.Point(12, 63);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(79, 13);
 			this.label1.TabIndex = 0;
@@ -56,14 +56,14 @@
 			// 
 			// txtNomeRede
 			// 
-			this.txtNomeRede.Location = new System.Drawing.Point(15, 90);
+			this.txtNomeRede.Location = new System.Drawing.Point(15, 80);
 			this.txtNomeRede.Name = "txtNomeRede";
 			this.txtNomeRede.Size = new System.Drawing.Size(262, 20);
 			this.txtNomeRede.TabIndex = 1;
 			// 
 			// txtSenha
 			// 
-			this.txtSenha.Location = new System.Drawing.Point(15, 141);
+			this.txtSenha.Location = new System.Drawing.Point(15, 131);
 			this.txtSenha.Name = "txtSenha";
 			this.txtSenha.Size = new System.Drawing.Size(262, 20);
 			this.txtSenha.TabIndex = 3;
@@ -71,7 +71,7 @@
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(12, 124);
+			this.label2.Location = new System.Drawing.Point(12, 114);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(38, 13);
 			this.label2.TabIndex = 2;
@@ -80,7 +80,7 @@
 			// label3
 			// 
 			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(12, 20);
+			this.label3.Location = new System.Drawing.Point(12, 10);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(135, 13);
 			this.label3.TabIndex = 4;
@@ -89,14 +89,14 @@
 			// comboRedes
 			// 
 			this.comboRedes.FormattingEnabled = true;
-			this.comboRedes.Location = new System.Drawing.Point(15, 37);
+			this.comboRedes.Location = new System.Drawing.Point(15, 27);
 			this.comboRedes.Name = "comboRedes";
 			this.comboRedes.Size = new System.Drawing.Size(262, 21);
 			this.comboRedes.TabIndex = 5;
 			// 
 			// button1
 			// 
-			this.button1.Location = new System.Drawing.Point(64, 177);
+			this.button1.Location = new System.Drawing.Point(64, 167);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(166, 33);
 			this.button1.TabIndex = 6;
@@ -108,7 +108,7 @@
 			// 
 			this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblStatus});
-			this.statusStrip1.Location = new System.Drawing.Point(0, 398);
+			this.statusStrip1.Location = new System.Drawing.Point(0, 384);
 			this.statusStrip1.Name = "statusStrip1";
 			this.statusStrip1.Size = new System.Drawing.Size(293, 22);
 			this.statusStrip1.TabIndex = 7;
@@ -117,8 +117,8 @@
 			// lblStatus
 			// 
 			this.lblStatus.Name = "lblStatus";
-			this.lblStatus.Size = new System.Drawing.Size(104, 17);
-			this.lblStatus.Text = "MiWifiRouter 1.0.1";
+			this.lblStatus.Size = new System.Drawing.Size(77, 17);
+			this.lblStatus.Text = "MiWifiRouter";
 			// 
 			// notifyIcon1
 			// 
@@ -133,7 +133,7 @@
 			// listView1
 			// 
 			this.listView1.FullRowSelect = true;
-			this.listView1.Location = new System.Drawing.Point(15, 251);
+			this.listView1.Location = new System.Drawing.Point(15, 241);
 			this.listView1.Name = "listView1";
 			this.listView1.Size = new System.Drawing.Size(262, 128);
 			this.listView1.Sorting = System.Windows.Forms.SortOrder.Descending;
@@ -143,7 +143,7 @@
 			// label4
 			// 
 			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(12, 235);
+			this.label4.Location = new System.Drawing.Point(12, 225);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(122, 13);
 			this.label4.TabIndex = 9;
@@ -153,7 +153,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(293, 420);
+			this.ClientSize = new System.Drawing.Size(293, 406);
 			this.Controls.Add(this.label4);
 			this.Controls.Add(this.listView1);
 			this.Controls.Add(this.statusStrip1);
@@ -166,10 +166,11 @@
 			this.Controls.Add(this.label1);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MaximizeBox = false;
-			this.MinimumSize = new System.Drawing.Size(292, 288);
+			this.MaximumSize = new System.Drawing.Size(309, 445);
+			this.MinimumSize = new System.Drawing.Size(309, 445);
 			this.Name = "HotspotForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "MiWifiRouter 1.0.1";
+			this.Text = "MiWifiRouter";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.HotspotForm_FormClosing);
 			this.Resize += new System.EventHandler(this.HotspotForm_Resize);
 			this.statusStrip1.ResumeLayout(false);
