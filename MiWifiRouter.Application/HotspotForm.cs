@@ -25,7 +25,7 @@ namespace MiWifiRouter
 		{
 			InitializeComponent();
 
-			this.Text += " " + Assembly.GetEntryAssembly().GetName().Version;
+			lblVersion.Text += Assembly.GetEntryAssembly().GetName().Version;
 
 			HotSpot = new Hotspot();
 			HotSpot.SearchDevicesCompleted += HotSpot_SearchDevicesCompleted;
