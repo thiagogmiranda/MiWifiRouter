@@ -11,6 +11,8 @@ using System.Windows.Forms;
 using System.Configuration;
 using System.IO;
 using System.Reflection;
+using System.Diagnostics;
+using System.Threading;
 
 namespace MiWifiRouter
 {
@@ -25,7 +27,7 @@ namespace MiWifiRouter
 		{
 			InitializeComponent();
 
-			lblVersion.Text += Assembly.GetEntryAssembly().GetName().Version;
+			this.Text = string.Format("Mi wifi router {0}", Assembly.GetEntryAssembly().GetName().Version.ToString());
 
 			HotSpot = new Hotspot();
 			HotSpot.SearchDevicesCompleted += HotSpot_SearchDevicesCompleted;
@@ -50,7 +52,7 @@ namespace MiWifiRouter
 			imgList.ImageSize = new System.Drawing.Size(36, 36);
 
 			Bitmap bmpAndroid = new Bitmap(Image.FromFile(Application.StartupPath + "\\Android.png")); // ImageIndex = 0
-			Bitmap bmpComputer = new Bitmap(Image.FromFile(Application.StartupPath + "\\computer.jpg")); // ImageIndex = 0
+			Bitmap bmpComputer = new Bitmap(Image.FromFile(Application.StartupPath + "\\computer.jpg")); // ImageIndex = 1
 
 			ImageHelper helper = new ImageHelper();
 			helper.AddImageToImageList(imgList, bmpAndroid, "android_device");
@@ -68,21 +70,24 @@ namespace MiWifiRouter
 					listView1.Items.Clear();
 					foreach (var item in devices)
 					{
-						var listViewItem = new ListViewItem(new string[] {
-						item.Hostname,
-						item.IpAddress,
-						item.MacAddress });
-
-						if (item.Hostname.ToLower().Contains("android"))
+						if (!listView1.Items.Find(item.Hostname, true).Any())
 						{
-							listViewItem.ImageIndex = 0; // Android icon
-						}
-						else
-						{
-							listViewItem.ImageIndex = 1; // Computer icon
-						}
+							var listViewItem = new ListViewItem(new string[] {
+								item.Hostname,
+								item.IpAddress,
+								item.MacAddress });
 
-						listView1.Items.Add(listViewItem);
+							if (item.Hostname.ToLower().Contains("android"))
+							{
+								listViewItem.ImageIndex = 0; // Android icon
+							}
+							else
+							{
+								listViewItem.ImageIndex = 1; // Computer icon
+							}
+
+							listView1.Items.Add(listViewItem);
+						}
 					}
 
 					if (HotSpot.IsSharing)
@@ -91,7 +96,7 @@ namespace MiWifiRouter
 					}
 					else
 					{
-						listView1.Clear();
+						listView1.Items.Clear();
 					}
 				}));
 			}
@@ -189,12 +194,12 @@ namespace MiWifiRouter
 
 			if (string.IsNullOrEmpty(opts.SSID))
 			{
-				ExibirAlerta("Informe um SSID.");
+				ExibirAlerta("Informe um nome para rede sem fio.");
 				ok = false;
 			}
 			if (string.IsNullOrEmpty(opts.Password))
 			{
-				ExibirAlerta("Informe uma Senha.");
+				ExibirAlerta("Informe uma senha.");
 				ok = false;
 			}
 			else if (opts.Password.Length < 8)
@@ -244,6 +249,11 @@ namespace MiWifiRouter
 		{
 			this.Show();
 			this.WindowState = FormWindowState.Normal;
+		}
+
+		private void button2_Click(object sender, EventArgs e)
+		{
+			Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7WQEYYCTM6854");
 		}
 	}
 }

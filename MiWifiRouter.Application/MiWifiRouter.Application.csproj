@@ -51,7 +51,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>wifi-icon-18.ico</ApplicationIcon>
+    <ApplicationIcon>miwifirouter.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>25F83852D0F3FD208D7EF6E9CB88C95741E5D471</ManifestCertificateThumbprint>
@@ -157,8 +157,9 @@
     <Content Include="computer.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="wifi-icon-18.ico" />
-    <Content Include="wifi-icon-18.png" />
+    <Content Include="donate_button.PNG" />
+    <Content Include="miwifirouter.ico" />
+    <Content Include="miwifirouter.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
@@ -187,16 +188,6 @@
       <PublishState>Auto</PublishState>
       <IncludeHash>False</IncludeHash>
       <FileType>ManifestEntryPoint</FileType>
-    </PublishFile>
-    <PublishFile Include="wifi-icon-18.ico">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Auto</PublishState>
-      <IncludeHash>False</IncludeHash>
-      <FileType>File</FileType>
     </PublishFile>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

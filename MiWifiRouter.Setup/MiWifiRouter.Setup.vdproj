@@ -27,7 +27,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_647C351145F84454903D25454CE6878F"
+        "MsmKey" = "8:_88903F50DF184427B5524E1BFCAD92EF"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -61,6 +61,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -77,6 +85,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.5"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.5 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.5"
+                    }
+                }
+            }
         }
     }
     "Deployable"
@@ -146,10 +170,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_647C351145F84454903D25454CE6878F"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_88903F50DF184427B5524E1BFCAD92EF"
             {
-            "SourcePath" = "8:..\\MiWifiRouter.Application\\wifi-icon-18.ico"
-            "TargetName" = "8:wifi-icon-18.ico"
+            "SourcePath" = "8:..\\MiWifiRouter.Application\\miwifirouter.ico"
+            "TargetName" = "8:miwifirouter.ico"
             "Tag" = "8:"
             "Folder" = "8:_E156885034F944E58B13D47C278A1468"
             "Condition" = "8:"
@@ -222,8 +246,8 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:MiWifiRouter"
-        "ProductCode" = "8:{47FF7060-CBCC-4C86-93A8-490912F58F4F}"
-        "PackageCode" = "8:{F3F56849-679B-4C7F-8351-5DA75687061C}"
+        "ProductCode" = "8:{4567F932-AD37-4A5D-99D3-C69CAE8466E4}"
+        "PackageCode" = "8:{D79151C5-4CA3-477A-9672-9312CCA1F7F4}"
         "UpgradeCode" = "8:{93AB1F6C-6FF4-48E7-8477-19A1DD66E72C}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -240,7 +264,7 @@
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:"
         "ARPURLINFOABOUT" = "8:"
-        "ARPPRODUCTICON" = "8:_647C351145F84454903D25454CE6878F"
+        "ARPPRODUCTICON" = "8:_88903F50DF184427B5524E1BFCAD92EF"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
@@ -354,7 +378,7 @@
             "Target" = "8:_B9A4CD5D0ABA47B39777EE3E7728A677"
             "Folder" = "8:_0FA51B485ACC49C09D94CC434A2A941F"
             "WorkingFolder" = "8:_E156885034F944E58B13D47C278A1468"
-            "Icon" = "8:_647C351145F84454903D25454CE6878F"
+            "Icon" = "8:_88903F50DF184427B5524E1BFCAD92EF"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_A051C04A95EA426AB00252C6ACBFF887"
@@ -368,7 +392,7 @@
             "Target" = "8:_B9A4CD5D0ABA47B39777EE3E7728A677"
             "Folder" = "8:_8D4922F40A1048E593AE9BC8CE5E6869"
             "WorkingFolder" = "8:_E156885034F944E58B13D47C278A1468"
-            "Icon" = "8:_647C351145F84454903D25454CE6878F"
+            "Icon" = "8:_88903F50DF184427B5524E1BFCAD92EF"
             "Feature" = "8:"
             }
         }
