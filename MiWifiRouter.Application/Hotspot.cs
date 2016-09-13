@@ -34,13 +34,13 @@ namespace MiWifiRouter
 
 		public void ShareWifi(WifiShareOpts options)
 		{
-				if (!IsSharing)
-				{
-					CommandLine.ExecuteCommand(string.Format("/C netsh wlan set hostednetwork mode=allow ssid={0} key={1}", options.SSID, options.Password));
-					CommandLine.ExecuteCommand("/C netsh wlan start hostednetwork");
+			if (!IsSharing)
+			{
+				CommandLine.ExecuteCommand(string.Format("/C netsh wlan set hostednetwork mode=allow ssid={0} key={1}", options.SSID, options.Password));
+				CommandLine.ExecuteCommand("/C netsh wlan start hostednetwork");
 
-					ToShare = GetConnectionById(options.Source.Id);
-					SharePoint = GetConnectionByDescription("Microsoft Hosted Network Virtual Adapter");
+				ToShare = GetConnectionById(options.Source.Id);
+				SharePoint = GetConnectionByDescription("Microsoft Hosted Network Virtual Adapter");
 
 				EnableSharing(ToShare, true);
 				EnableSharing(SharePoint, false);
@@ -66,10 +66,10 @@ namespace MiWifiRouter
 			{
 				EnableSharing(connection, icsPublic);
 			}
-			}
+		}
 
 		private void DisableSharing(INetConnection connection)
-			{
+		{
 			var config = GetConfiguration(connection);
 			config.DisableSharing();
 		}
@@ -97,19 +97,18 @@ namespace MiWifiRouter
 			{
 				string gatewayIp = GetSharePointNetworkGatewayIP();
 				string[] array = gatewayIp.Split('.');
+				string ipBase = string.Format("{0}.{1}.{2}", array[0], array[1], array[2]);
 
 				var tasks = new List<Task>();
 
 				for (int i = 2; i <= 255; i++)
 				{
-					string ping_var = array[0] + "." + array[1] + "." + array[2] + "." + i;
+					string enderecoIp = string.Format("{0}.{1}", ipBase, i);
 
-					tasks.AddRange(Lookup(ping_var, 4, 4000));
+					tasks.AddRange(Lookup(enderecoIp, 4, 4000));
 				}
 
 				Task.WaitAll(tasks.ToArray());
-
-				Thread.Sleep(3000);
 
 				if (SearchDevicesCompleted != null)
 				{
@@ -131,6 +130,8 @@ namespace MiWifiRouter
 						System.Net.NetworkInformation.Ping ping = new System.Net.NetworkInformation.Ping();
 						ping.PingCompleted += new PingCompletedEventHandler(PingCompleted);
 						ping.SendAsync(host, timeout, host);
+
+						GC.Collect();
 					}
 					catch
 					{
@@ -138,7 +139,7 @@ namespace MiWifiRouter
 						// Exceptions are thrown for normal ping failurs like address lookup
 						// failed.  For this reason we are supressing errors.
 					}
-				}); 
+				});
 
 				threads[i] = t;
 			}
@@ -208,7 +209,7 @@ namespace MiWifiRouter
 			{
 				return "OWN Machine";
 			}
-		}  
+		}
 
 		private string GetSharePointNetworkGatewayIP()
 		{

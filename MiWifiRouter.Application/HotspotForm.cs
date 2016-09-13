@@ -23,6 +23,10 @@ namespace MiWifiRouter
 
 		public bool _closing;
 
+		private System.Timers.Timer timer;
+		private Task _taskPesquisaDispositivos;
+		private static object syncSearch = new object();
+
 		public HotspotForm()
 		{
 			InitializeComponent();
@@ -39,6 +43,10 @@ namespace MiWifiRouter
 			txtSenha.Text = ConfigurationManager.AppSettings["password"] ?? string.Empty;
 
 			InicializarListViewDispositivos();
+
+			timer = new System.Timers.Timer(1000 * 5);
+			timer.Elapsed += timer_Elapsed;
+			timer.Enabled = false;
 		}
 
 		private void InicializarListViewDispositivos()
@@ -89,25 +97,27 @@ namespace MiWifiRouter
 							listView1.Items.Add(listViewItem);
 						}
 					}
-
-					if (HotSpot.IsSharing)
-					{
-						InicializarTarefaAssincronaProcuraDispositivos();
-					}
-					else
-					{
-						listView1.Items.Clear();
-					}
 				}));
 			}
 		}
 
-		private void InicializarTarefaAssincronaProcuraDispositivos()
+		private void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
 		{
-			Task.Factory.StartNew(() =>
+			lock (syncSearch)
 			{
-				HotSpot.SearchConnectedDevices();
-			});
+				if (_taskPesquisaDispositivos == null || _taskPesquisaDispositivos.IsCompleted)
+				{
+					if (_taskPesquisaDispositivos != null && _taskPesquisaDispositivos.IsCompleted)
+					{
+						_taskPesquisaDispositivos.Dispose();
+					}
+
+					_taskPesquisaDispositivos = Task.Factory.StartNew(() =>
+					{
+						HotSpot.SearchConnectedDevices();
+					});
+				}
+			}
 		}
 
 		private void CarregarRedesDisponiveis()
@@ -129,6 +139,8 @@ namespace MiWifiRouter
 			if (HotSpot.IsSharing)
 			{
 				DesabilitarSharing();
+
+				timer.Enabled = false;
 
 				listView1.Items.Clear();
 			}
@@ -154,7 +166,7 @@ namespace MiWifiRouter
 
 					AtualizarStatus("HotSpot iniciado.");
 
-					InicializarTarefaAssincronaProcuraDispositivos();
+					timer.Enabled = true;
 				}
 			}
 
@@ -195,6 +207,11 @@ namespace MiWifiRouter
 			if (string.IsNullOrEmpty(opts.SSID))
 			{
 				ExibirAlerta("Informe um nome para rede sem fio.");
+				ok = false;
+			}
+			else if (opts.SSID.Split(' ').Length > 1)
+			{
+				ExibirAlerta("O Nome da rede sem fio não pode conter espaços.");
 				ok = false;
 			}
 			if (string.IsNullOrEmpty(opts.Password))

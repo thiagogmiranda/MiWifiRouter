@@ -46,6 +46,7 @@
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.button2 = new System.Windows.Forms.Button();
 			this.label4 = new System.Windows.Forms.Label();
+			this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
 			this.statusStrip1.SuspendLayout();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -65,7 +66,7 @@
 			// txtNomeRede
 			// 
 			this.txtNomeRede.Location = new System.Drawing.Point(118, 64);
-			this.txtNomeRede.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.txtNomeRede.Margin = new System.Windows.Forms.Padding(4);
 			this.txtNomeRede.Name = "txtNomeRede";
 			this.txtNomeRede.Size = new System.Drawing.Size(234, 22);
 			this.txtNomeRede.TabIndex = 1;
@@ -73,7 +74,7 @@
 			// txtSenha
 			// 
 			this.txtSenha.Location = new System.Drawing.Point(118, 94);
-			this.txtSenha.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.txtSenha.Margin = new System.Windows.Forms.Padding(4);
 			this.txtSenha.Name = "txtSenha";
 			this.txtSenha.Size = new System.Drawing.Size(234, 22);
 			this.txtSenha.TabIndex = 3;
@@ -102,7 +103,7 @@
 			// 
 			this.comboRedes.FormattingEnabled = true;
 			this.comboRedes.Location = new System.Drawing.Point(118, 32);
-			this.comboRedes.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.comboRedes.Margin = new System.Windows.Forms.Padding(4);
 			this.comboRedes.Name = "comboRedes";
 			this.comboRedes.Size = new System.Drawing.Size(234, 24);
 			this.comboRedes.TabIndex = 5;
@@ -110,7 +111,7 @@
 			// button1
 			// 
 			this.button1.Location = new System.Drawing.Point(223, 126);
-			this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.button1.Margin = new System.Windows.Forms.Padding(4);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(129, 31);
 			this.button1.TabIndex = 6;
@@ -150,7 +151,7 @@
 			// 
 			this.listView1.FullRowSelect = true;
 			this.listView1.Location = new System.Drawing.Point(12, 28);
-			this.listView1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.listView1.Margin = new System.Windows.Forms.Padding(4);
 			this.listView1.Name = "listView1";
 			this.listView1.Size = new System.Drawing.Size(340, 166);
 			this.listView1.Sorting = System.Windows.Forms.SortOrder.Descending;
@@ -167,9 +168,9 @@
 			this.groupBox1.Controls.Add(this.comboRedes);
 			this.groupBox1.Controls.Add(this.button1);
 			this.groupBox1.Location = new System.Drawing.Point(13, 47);
-			this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
 			this.groupBox1.Size = new System.Drawing.Size(371, 172);
 			this.groupBox1.TabIndex = 13;
 			this.groupBox1.TabStop = false;
@@ -179,9 +180,9 @@
 			// 
 			this.groupBox2.Controls.Add(this.listView1);
 			this.groupBox2.Location = new System.Drawing.Point(13, 227);
-			this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
 			this.groupBox2.Size = new System.Drawing.Size(371, 207);
 			this.groupBox2.TabIndex = 14;
 			this.groupBox2.TabStop = false;
@@ -224,6 +225,10 @@
 			this.label4.TabIndex = 17;
 			this.label4.Text = "Mi wifi router";
 			// 
+			// backgroundWorker
+			// 
+			this.backgroundWorker.WorkerSupportsCancellation = true;
+			// 
 			// HotspotForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -236,7 +241,7 @@
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.statusStrip1);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.Margin = new System.Windows.Forms.Padding(4);
 			this.MaximizeBox = false;
 			this.Name = "HotspotForm";
 			this.ShowIcon = false;
@@ -272,6 +277,7 @@
 		private System.Windows.Forms.Button button2;
 		private System.Windows.Forms.PictureBox pictureBox1;
 		private System.Windows.Forms.Label label4;
+		protected System.ComponentModel.BackgroundWorker backgroundWorker;
 	}
 }
 
