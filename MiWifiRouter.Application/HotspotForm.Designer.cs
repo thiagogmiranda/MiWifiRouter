@@ -40,16 +40,22 @@
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
 			this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+			this.contextMenuStripIcon = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.abrirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+			this.fecharToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.listView1 = new System.Windows.Forms.ListView();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.groupBox2 = new System.Windows.Forms.GroupBox();
-			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.button2 = new System.Windows.Forms.Button();
-			this.label4 = new System.Windows.Forms.Label();
+			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+			this.configuraçõesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.sobreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.statusStrip1.SuspendLayout();
+			this.contextMenuStripIcon.SuspendLayout();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+			this.menuStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// label1
@@ -123,10 +129,10 @@
 			this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
 			this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblStatus});
-			this.statusStrip1.Location = new System.Drawing.Point(0, 447);
+			this.statusStrip1.Location = new System.Drawing.Point(0, 436);
 			this.statusStrip1.Name = "statusStrip1";
 			this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
-			this.statusStrip1.Size = new System.Drawing.Size(395, 25);
+			this.statusStrip1.Size = new System.Drawing.Size(398, 25);
 			this.statusStrip1.TabIndex = 7;
 			this.statusStrip1.Text = "statusStrip1";
 			// 
@@ -141,10 +147,42 @@
 			this.notifyIcon1.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
 			this.notifyIcon1.BalloonTipText = "Compartilhamento de internet via Wifi no Windows 10";
 			this.notifyIcon1.BalloonTipTitle = "MiWifi Router";
+			this.notifyIcon1.ContextMenuStrip = this.contextMenuStripIcon;
 			this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
 			this.notifyIcon1.Text = "MiWifi Router";
 			this.notifyIcon1.Visible = true;
-			this.notifyIcon1.Click += new System.EventHandler(this.notifyIcon1_Click);
+			this.notifyIcon1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_Click);
+			// 
+			// contextMenuStripIcon
+			// 
+			this.contextMenuStripIcon.ImageScalingSize = new System.Drawing.Size(20, 20);
+			this.contextMenuStripIcon.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.abrirToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.fecharToolStripMenuItem});
+			this.contextMenuStripIcon.Name = "contextMenuStripIcon";
+			this.contextMenuStripIcon.Size = new System.Drawing.Size(128, 82);
+			// 
+			// abrirToolStripMenuItem
+			// 
+			this.abrirToolStripMenuItem.Name = "abrirToolStripMenuItem";
+			this.abrirToolStripMenuItem.Size = new System.Drawing.Size(127, 26);
+			this.abrirToolStripMenuItem.Text = "Abrir";
+			this.abrirToolStripMenuItem.Click += new System.EventHandler(this.abrirToolStripMenuItem_Click);
+			// 
+			// toolStripMenuItem1
+			// 
+			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+			this.toolStripMenuItem1.Size = new System.Drawing.Size(127, 26);
+			this.toolStripMenuItem1.Text = "Parar";
+			this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+			// 
+			// fecharToolStripMenuItem
+			// 
+			this.fecharToolStripMenuItem.Name = "fecharToolStripMenuItem";
+			this.fecharToolStripMenuItem.Size = new System.Drawing.Size(127, 26);
+			this.fecharToolStripMenuItem.Text = "Fechar";
+			this.fecharToolStripMenuItem.Click += new System.EventHandler(this.fecharToolStripMenuItem_Click);
 			// 
 			// listView1
 			// 
@@ -160,13 +198,14 @@
 			// groupBox1
 			// 
 			this.groupBox1.Controls.Add(this.label3);
+			this.groupBox1.Controls.Add(this.button2);
 			this.groupBox1.Controls.Add(this.label1);
 			this.groupBox1.Controls.Add(this.txtNomeRede);
 			this.groupBox1.Controls.Add(this.label2);
 			this.groupBox1.Controls.Add(this.txtSenha);
 			this.groupBox1.Controls.Add(this.comboRedes);
 			this.groupBox1.Controls.Add(this.button1);
-			this.groupBox1.Location = new System.Drawing.Point(13, 47);
+			this.groupBox1.Location = new System.Drawing.Point(13, 35);
 			this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
 			this.groupBox1.Name = "groupBox1";
 			this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
@@ -174,29 +213,6 @@
 			this.groupBox1.TabIndex = 13;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Hotspot";
-			// 
-			// groupBox2
-			// 
-			this.groupBox2.Controls.Add(this.listView1);
-			this.groupBox2.Location = new System.Drawing.Point(13, 227);
-			this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
-			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
-			this.groupBox2.Size = new System.Drawing.Size(371, 207);
-			this.groupBox2.TabIndex = 14;
-			this.groupBox2.TabStop = false;
-			this.groupBox2.Text = "Dispositivos Conectados";
-			// 
-			// pictureBox1
-			// 
-			this.pictureBox1.BackgroundImage = global::MiWifiRouter.Properties.Resources.miwifirouter;
-			this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-			this.pictureBox1.InitialImage = null;
-			this.pictureBox1.Location = new System.Drawing.Point(13, 6);
-			this.pictureBox1.Name = "pictureBox1";
-			this.pictureBox1.Size = new System.Drawing.Size(36, 38);
-			this.pictureBox1.TabIndex = 16;
-			this.pictureBox1.TabStop = false;
 			// 
 			// button2
 			// 
@@ -207,48 +223,78 @@
 			this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.button2.FlatAppearance.BorderSize = 0;
 			this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.button2.Location = new System.Drawing.Point(291, 12);
+			this.button2.Location = new System.Drawing.Point(12, 125);
 			this.button2.Name = "button2";
 			this.button2.Size = new System.Drawing.Size(93, 32);
 			this.button2.TabIndex = 15;
 			this.button2.UseVisualStyleBackColor = false;
 			this.button2.Click += new System.EventHandler(this.button2_Click);
 			// 
-			// label4
+			// groupBox2
 			// 
-			this.label4.AutoSize = true;
-			this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label4.Location = new System.Drawing.Point(53, 10);
-			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(150, 29);
-			this.label4.TabIndex = 17;
-			this.label4.Text = "Mi wifi router";
+			this.groupBox2.Controls.Add(this.listView1);
+			this.groupBox2.Location = new System.Drawing.Point(13, 215);
+			this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
+			this.groupBox2.Name = "groupBox2";
+			this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
+			this.groupBox2.Size = new System.Drawing.Size(371, 207);
+			this.groupBox2.TabIndex = 14;
+			this.groupBox2.TabStop = false;
+			this.groupBox2.Text = "Dispositivos Conectados";
+			// 
+			// menuStrip1
+			// 
+			this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.configuraçõesToolStripMenuItem,
+            this.sobreToolStripMenuItem});
+			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+			this.menuStrip1.Name = "menuStrip1";
+			this.menuStrip1.Size = new System.Drawing.Size(398, 28);
+			this.menuStrip1.TabIndex = 18;
+			this.menuStrip1.Text = "menuStrip1";
+			// 
+			// configuraçõesToolStripMenuItem
+			// 
+			this.configuraçõesToolStripMenuItem.Name = "configuraçõesToolStripMenuItem";
+			this.configuraçõesToolStripMenuItem.Size = new System.Drawing.Size(116, 24);
+			this.configuraçõesToolStripMenuItem.Text = "Configurações";
+			this.configuraçõesToolStripMenuItem.Click += new System.EventHandler(this.configuraçõesToolStripMenuItem_Click);
+			// 
+			// sobreToolStripMenuItem
+			// 
+			this.sobreToolStripMenuItem.Name = "sobreToolStripMenuItem";
+			this.sobreToolStripMenuItem.Size = new System.Drawing.Size(60, 24);
+			this.sobreToolStripMenuItem.Text = "Sobre";
+			this.sobreToolStripMenuItem.Click += new System.EventHandler(this.sobreToolStripMenuItem_Click);
 			// 
 			// HotspotForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(395, 472);
-			this.Controls.Add(this.label4);
-			this.Controls.Add(this.pictureBox1);
-			this.Controls.Add(this.button2);
+			this.ClientSize = new System.Drawing.Size(398, 461);
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.statusStrip1);
+			this.Controls.Add(this.menuStrip1);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+			this.MainMenuStrip = this.menuStrip1;
 			this.Margin = new System.Windows.Forms.Padding(4);
 			this.MaximizeBox = false;
+			this.MaximumSize = new System.Drawing.Size(416, 508);
+			this.MinimumSize = new System.Drawing.Size(416, 508);
 			this.Name = "HotspotForm";
-			this.ShowIcon = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.HotspotForm_FormClosing);
 			this.Resize += new System.EventHandler(this.HotspotForm_Resize);
 			this.statusStrip1.ResumeLayout(false);
 			this.statusStrip1.PerformLayout();
+			this.contextMenuStripIcon.ResumeLayout(false);
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
 			this.groupBox2.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+			this.menuStrip1.ResumeLayout(false);
+			this.menuStrip1.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -270,8 +316,13 @@
 		private System.Windows.Forms.GroupBox groupBox1;
 		private System.Windows.Forms.GroupBox groupBox2;
 		private System.Windows.Forms.Button button2;
-		private System.Windows.Forms.PictureBox pictureBox1;
-		private System.Windows.Forms.Label label4;
+		private System.Windows.Forms.ContextMenuStrip contextMenuStripIcon;
+		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+		private System.Windows.Forms.ToolStripMenuItem abrirToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem fecharToolStripMenuItem;
+		private System.Windows.Forms.MenuStrip menuStrip1;
+		private System.Windows.Forms.ToolStripMenuItem sobreToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem configuraçõesToolStripMenuItem;
 	}
 }
 

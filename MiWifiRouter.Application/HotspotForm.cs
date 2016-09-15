@@ -31,7 +31,7 @@ namespace MiWifiRouter
 		{
 			InitializeComponent();
 
-			this.Text = string.Format("Mi wifi router {0}", Assembly.GetEntryAssembly().GetName().Version.ToString());
+			this.Text = string.Format("MiWifi Router {0}", Assembly.GetEntryAssembly().GetName().Version.ToString());
 
 			HotSpot = new Hotspot();
 			HotSpot.SearchDevicesCompleted += HotSpot_SearchDevicesCompleted;
@@ -138,11 +138,7 @@ namespace MiWifiRouter
 
 			if (HotSpot.IsSharing)
 			{
-				DesabilitarSharing();
-
-				timer.Enabled = false;
-
-				listView1.Items.Clear();
+				PararHotSpot();
 			}
 			else
 			{
@@ -252,25 +248,78 @@ namespace MiWifiRouter
 		{
 			if (FormWindowState.Minimized == this.WindowState)
 			{
-				notifyIcon1.Visible = true;
-				notifyIcon1.ShowBalloonTip(500);
-				this.Hide();
-			}
-			else if (FormWindowState.Normal == this.WindowState)
-			{
-				notifyIcon1.Visible = false;
+				ExibirIconeNotificacao();
 			}
 		}
 
-		private void notifyIcon1_Click(object sender, EventArgs e)
+		private void notifyIcon1_Click(object sender, MouseEventArgs e)
 		{
-			this.Show();
-			this.WindowState = FormWindowState.Normal;
+			if (e.Button == MouseButtons.Left)
+			{
+				ExibirForm();
+			}
+			else if (e.Button == MouseButtons.Right)
+			{
+				contextMenuStripIcon.Show();
+			}
 		}
 
 		private void button2_Click(object sender, EventArgs e)
 		{
 			Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7WQEYYCTM6854");
+		}
+
+		private void toolStripMenuItem1_Click(object sender, EventArgs e)
+		{
+			PararHotSpot();
+
+			toolStripMenuItem1.Enabled = false;
+		}
+
+		private void abrirToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			ExibirForm();
+		}
+
+		private void fecharToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			this.Close();
+		}
+
+		private void sobreToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			new AboutForm().ShowDialog(this);
+		}
+
+		private void configuraçõesToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			new ConfigurationForm().ShowDialog(this);
+		}
+
+		private void ExibirIconeNotificacao()
+		{
+			this.Hide();
+
+			notifyIcon1.Visible = true;
+			notifyIcon1.ShowBalloonTip(500);
+
+			toolStripMenuItem1.Enabled = HotSpot.IsSharing;
+		}
+
+		private void ExibirForm()
+		{
+			this.Show();
+			this.WindowState = FormWindowState.Normal;
+			notifyIcon1.Visible = false;
+		}
+
+		private void PararHotSpot()
+		{
+			DesabilitarSharing();
+
+			timer.Enabled = false;
+
+			listView1.Items.Clear();
 		}
 	}
 }
