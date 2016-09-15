@@ -46,7 +46,6 @@
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.button2 = new System.Windows.Forms.Button();
 			this.label4 = new System.Windows.Forms.Label();
-			this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
 			this.statusStrip1.SuspendLayout();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -141,9 +140,9 @@
 			// 
 			this.notifyIcon1.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
 			this.notifyIcon1.BalloonTipText = "Compartilhamento de internet via Wifi no Windows 10";
-			this.notifyIcon1.BalloonTipTitle = "MiWifiRouter 1.0";
+			this.notifyIcon1.BalloonTipTitle = "MiWifi Router";
 			this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
-			this.notifyIcon1.Text = "MiWifiRouter";
+			this.notifyIcon1.Text = "MiWifi Router";
 			this.notifyIcon1.Visible = true;
 			this.notifyIcon1.Click += new System.EventHandler(this.notifyIcon1_Click);
 			// 
@@ -225,10 +224,6 @@
 			this.label4.TabIndex = 17;
 			this.label4.Text = "Mi wifi router";
 			// 
-			// backgroundWorker
-			// 
-			this.backgroundWorker.WorkerSupportsCancellation = true;
-			// 
 			// HotspotForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -277,7 +272,6 @@
 		private System.Windows.Forms.Button button2;
 		private System.Windows.Forms.PictureBox pictureBox1;
 		private System.Windows.Forms.Label label4;
-		protected System.ComponentModel.BackgroundWorker backgroundWorker;
 	}
 }
 

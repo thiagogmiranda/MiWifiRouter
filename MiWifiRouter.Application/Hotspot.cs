@@ -5,8 +5,6 @@ using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
-using System.Runtime.InteropServices;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace MiWifiRouter
@@ -22,12 +20,12 @@ namespace MiWifiRouter
 		{
 			get
 			{
-				return SharingEnabled(ToShare) && SharingEnabled(SharePoint);
+				return SharingEnabled(LocalConnection) && SharingEnabled(WifiConnection);
 			}
 		}
 
-		private INetConnection ToShare;
-		private INetConnection SharePoint;
+		private INetConnection LocalConnection;
+		private INetConnection WifiConnection;
 
 		private static object syncDeviceSearch = new object();
 		private List<Device> DevicesFound = new List<Device>();
@@ -39,53 +37,26 @@ namespace MiWifiRouter
 				CommandLine.ExecuteCommand(string.Format("/C netsh wlan set hostednetwork mode=allow ssid={0} key={1}", options.SSID, options.Password));
 				CommandLine.ExecuteCommand("/C netsh wlan start hostednetwork");
 
-				ToShare = GetConnectionById(options.Source.Id);
-				SharePoint = GetConnectionByDescription("Microsoft Hosted Network Virtual Adapter");
+				LocalConnection = GetConnectionById(options.Source.Id);
+				WifiConnection = GetConnectionByDescription("Microsoft Hosted Network Virtual Adapter");
 
-				EnableSharing(ToShare, true);
-				EnableSharing(SharePoint, false);
+				NetworkManager.EnableShare(LocalConnection, tagSHARINGCONNECTIONTYPE.ICSSHARINGTYPE_PUBLIC);
+				NetworkManager.EnableShare(WifiConnection, tagSHARINGCONNECTIONTYPE.ICSSHARINGTYPE_PRIVATE);
 			}
-		}
-
-		private void EnableSharing(INetConnection connection, bool icsPublic)
-		{
-			try
-			{
-				var config = GetConfiguration(connection);
-
-				if (icsPublic)
-				{
-					config.EnableSharing(tagSHARINGCONNECTIONTYPE.ICSSHARINGTYPE_PUBLIC);
-				}
-				else
-				{
-					config.EnableSharing(tagSHARINGCONNECTIONTYPE.ICSSHARINGTYPE_PRIVATE);
-				}
-			}
-			catch (COMException)
-			{
-				EnableSharing(connection, icsPublic);
-			}
-		}
-
-		private void DisableSharing(INetConnection connection)
-		{
-			var config = GetConfiguration(connection);
-			config.DisableSharing();
 		}
 
 		public void StopSharing(NetworkInterface network)
 		{
 			if (IsSharing)
 			{
-				DisableSharing(ToShare);
-				DisableSharing(SharePoint);
+				NetworkManager.DisableShare(WifiConnection);
+				NetworkManager.DisableShare(LocalConnection);
 
 				CommandLine.ExecuteCommand("/C netsh wlan stop hostednetwork");
 				CommandLine.ExecuteCommand("/C netsh wlan set hostednetwork mode=disallow");
 
-				ToShare = null;
-				SharePoint = null;
+				LocalConnection = null;
+				WifiConnection = null;
 			}
 		}
 
@@ -213,7 +184,7 @@ namespace MiWifiRouter
 
 		private string GetSharePointNetworkGatewayIP()
 		{
-			var sharePointProps = SharingManager.get_NetConnectionProps(SharePoint);
+			var sharePointProps = SharingManager.get_NetConnectionProps(WifiConnection);
 			var sharePointInterface = NetworkInterface.GetAllNetworkInterfaces().Where(i => i.Id == sharePointProps.Guid).DefaultIfEmpty(null).First();
 			string ip = null;
 

@@ -11,6 +11,7 @@
 "SccLocalPath" = "8:"
 "SccAuxPath" = "8:"
 "SccProvider" = "8:"
+"BackwardsCompatibleGUIDGeneration" = "8:TRUE"
     "Hierarchy"
     {
         "Entry"
@@ -68,6 +69,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.5"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.5 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.5"
+                    }
+                }
             }
         }
         "Release"
@@ -75,7 +84,7 @@
         "DisplayName" = "8:Release"
         "IsDebugOnly" = "11:FALSE"
         "IsReleaseOnly" = "11:TRUE"
-        "OutputFilename" = "8:Release\\MiWifiRouter.Setup.msi"
+        "OutputFilename" = "8:Release\\MiWifiRouter.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -245,24 +254,24 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:MiWifiRouter"
-        "ProductCode" = "8:{4567F932-AD37-4A5D-99D3-C69CAE8466E4}"
-        "PackageCode" = "8:{D79151C5-4CA3-477A-9672-9312CCA1F7F4}"
+        "ProductName" = "8:MiWifi Router"
+        "ProductCode" = "8:{002CFB0C-1AE9-491A-9FC9-835E51860E58}"
+        "PackageCode" = "8:{37785A06-CBF3-4B22-BCD5-B1F95968C0EF}"
         "UpgradeCode" = "8:{93AB1F6C-6FF4-48E7-8477-19A1DD66E72C}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
-        "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.0"
+        "InstallAllUsers" = "11:TRUE"
+        "ProductVersion" = "8:1.2.0"
         "Manufacturer" = "8:Miranda Solutions"
         "ARPHELPTELEPHONE" = "8:5521968248860"
         "ARPHELPLINK" = "8:"
-        "Title" = "8:MiWifiRouter"
+        "Title" = "8:MiWifi Router"
         "Subject" = "8:"
         "ARPCONTACT" = "8:Thiago Gonçalves Miranda"
         "Keywords" = "8:"
-        "ARPCOMMENTS" = "8:"
+        "ARPCOMMENTS" = "8:Hotspot wifi para windows 10"
         "ARPURLINFOABOUT" = "8:"
         "ARPPRODUCTICON" = "8:_88903F50DF184427B5524E1BFCAD92EF"
         "ARPIconIndex" = "3:0"
@@ -755,7 +764,7 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:0"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "CopyrightWarning"
