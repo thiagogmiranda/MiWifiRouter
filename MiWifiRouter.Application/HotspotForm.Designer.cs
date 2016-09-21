@@ -48,6 +48,7 @@
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.button2 = new System.Windows.Forms.Button();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.button3 = new System.Windows.Forms.Button();
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.configuraçõesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.sobreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -129,7 +130,7 @@
 			this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
 			this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblStatus});
-			this.statusStrip1.Location = new System.Drawing.Point(0, 436);
+			this.statusStrip1.Location = new System.Drawing.Point(0, 476);
 			this.statusStrip1.Name = "statusStrip1";
 			this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
 			this.statusStrip1.Size = new System.Drawing.Size(398, 25);
@@ -232,15 +233,26 @@
 			// 
 			// groupBox2
 			// 
+			this.groupBox2.Controls.Add(this.button3);
 			this.groupBox2.Controls.Add(this.listView1);
 			this.groupBox2.Location = new System.Drawing.Point(13, 215);
 			this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
 			this.groupBox2.Name = "groupBox2";
 			this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
-			this.groupBox2.Size = new System.Drawing.Size(371, 207);
+			this.groupBox2.Size = new System.Drawing.Size(371, 248);
 			this.groupBox2.TabIndex = 14;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Dispositivos Conectados";
+			// 
+			// button3
+			// 
+			this.button3.Location = new System.Drawing.Point(11, 201);
+			this.button3.Name = "button3";
+			this.button3.Size = new System.Drawing.Size(341, 34);
+			this.button3.TabIndex = 19;
+			this.button3.Text = "Atualizar lista de dispositivos";
+			this.button3.UseVisualStyleBackColor = true;
+			this.button3.Click += new System.EventHandler(this.button3_Click);
 			// 
 			// menuStrip1
 			// 
@@ -272,7 +284,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(398, 461);
+			this.ClientSize = new System.Drawing.Size(398, 501);
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.statusStrip1);
@@ -281,8 +293,8 @@
 			this.MainMenuStrip = this.menuStrip1;
 			this.Margin = new System.Windows.Forms.Padding(4);
 			this.MaximizeBox = false;
-			this.MaximumSize = new System.Drawing.Size(416, 508);
-			this.MinimumSize = new System.Drawing.Size(416, 508);
+			this.MaximumSize = new System.Drawing.Size(416, 548);
+			this.MinimumSize = new System.Drawing.Size(416, 548);
 			this.Name = "HotspotForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.HotspotForm_FormClosing);
@@ -323,6 +335,7 @@
 		private System.Windows.Forms.MenuStrip menuStrip1;
 		private System.Windows.Forms.ToolStripMenuItem sobreToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem configuraçõesToolStripMenuItem;
+		private System.Windows.Forms.Button button3;
 	}
 }
 

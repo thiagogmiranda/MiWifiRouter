@@ -18,14 +18,8 @@ namespace MiWifiRouter
 {
 	public partial class HotspotForm : Form
 	{
-		private Hotspot HotSpot;
-		private List<Device> Devices;
-
+		private Hotspot Hotspot;
 		public bool _closing;
-
-		private System.Timers.Timer timer;
-		private Task _taskPesquisaDispositivos;
-		private static object syncSearch = new object();
 
 		public HotspotForm()
 		{
@@ -33,9 +27,8 @@ namespace MiWifiRouter
 
 			this.Text = string.Format("MiWifi Router {0}", Assembly.GetEntryAssembly().GetName().Version.ToString());
 
-			HotSpot = new Hotspot();
-			HotSpot.SearchDevicesCompleted += HotSpot_SearchDevicesCompleted;
-			Devices = new List<Device>();
+			Hotspot = new Hotspot();
+			Hotspot.OnDeviceFound += Hotspot_DeviceFound;
 
 			CarregarRedesDisponiveis();
 
@@ -43,10 +36,6 @@ namespace MiWifiRouter
 			txtSenha.Text = ConfigurationManager.AppSettings["password"] ?? string.Empty;
 
 			InicializarListViewDispositivos();
-
-			timer = new System.Timers.Timer(1000 * 5);
-			timer.Elapsed += timer_Elapsed;
-			timer.Enabled = false;
 		}
 
 		private void InicializarListViewDispositivos()
@@ -69,54 +58,30 @@ namespace MiWifiRouter
 			listView1.LargeImageList = imgList;
 		}
 
-		private void HotSpot_SearchDevicesCompleted(List<Device> devices)
+		private void Hotspot_DeviceFound(Device device)
 		{
 			if (!_closing)
 			{
 				this.Invoke(new Action(() =>
 				{
-					listView1.Items.Clear();
-					foreach (var item in devices)
+					bool hasItem = listView1.Items.Cast<ListViewItem>().Any(item => item.SubItems[0].Text == device.Hostname);
+
+					if (!hasItem)
 					{
-						if (!listView1.Items.Find(item.Hostname, true).Any())
+						var listViewItem = new ListViewItem(new string[] { device.Hostname, device.IpAddress, device.MacAddress });
+
+						if (device.Hostname.ToLower().Contains("android"))
 						{
-							var listViewItem = new ListViewItem(new string[] {
-								item.Hostname,
-								item.IpAddress,
-								item.MacAddress });
-
-							if (item.Hostname.ToLower().Contains("android"))
-							{
-								listViewItem.ImageIndex = 0; // Android icon
-							}
-							else
-							{
-								listViewItem.ImageIndex = 1; // Computer icon
-							}
-
-							listView1.Items.Add(listViewItem);
+							listViewItem.ImageIndex = 0; // Android icon
 						}
+						else
+						{
+							listViewItem.ImageIndex = 1; // Computer icon
+						}
+
+						listView1.Items.Add(listViewItem);
 					}
 				}));
-			}
-		}
-
-		private void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
-		{
-			lock (syncSearch)
-			{
-				if (_taskPesquisaDispositivos == null || _taskPesquisaDispositivos.IsCompleted)
-				{
-					if (_taskPesquisaDispositivos != null && _taskPesquisaDispositivos.IsCompleted)
-					{
-						_taskPesquisaDispositivos.Dispose();
-					}
-
-					_taskPesquisaDispositivos = Task.Factory.StartNew(() =>
-					{
-						HotSpot.SearchConnectedDevices();
-					});
-				}
 			}
 		}
 
@@ -136,33 +101,34 @@ namespace MiWifiRouter
 		{
 			button1.Enabled = false;
 
-			if (HotSpot.IsSharing)
+			if (Hotspot.Started)
 			{
 				PararHotSpot();
 			}
 			else
 			{
-				WifiShareOpts opts = new WifiShareOpts();
-				opts.SSID = txtNomeRede.Text;
-				opts.Password = txtSenha.Text;
-				opts.Source = (NetworkInterface)comboRedes.SelectedItem;
+				Hotspot.Name = txtNomeRede.Text;
+				Hotspot.Password = txtSenha.Text;
+				Hotspot.LocalNetwork = (NetworkInterface)comboRedes.SelectedItem;
 
-				if (OptsValidas(opts))
+				if (DadosValidosParaIniciarHotspot())
 				{
-					Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-					config.AppSettings.Settings["ssid"].Value = opts.SSID;
-					config.AppSettings.Settings["password"].Value = opts.Password;
-					config.Save(ConfigurationSaveMode.Modified);
+					AtualizarStatus("Iniciando Hotspot.");
 
-					AtualizarStatus("Iniciando HotSpot.");
+					MiWifiConfiguration.SSID = Hotspot.Name;
+					MiWifiConfiguration.Password = Hotspot.Password;
 
-					HotSpot.ShareWifi(opts);
-
-					DesabilitarComponentes();
-
-					AtualizarStatus("HotSpot iniciado.");
-
-					timer.Enabled = true;
+					try
+					{
+						Hotspot.Start();
+						DesabilitarComponentes();
+						AtualizarStatus("Hotspot iniciado.");
+					}
+					catch (Exception ex)
+					{
+						AtualizarStatus("Erro ao iniciar o Hotspot.");
+						MessageBox.Show(this, ex.Message, "Ops... Ocorreu um erro!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					}
 				}
 			}
 
@@ -173,7 +139,7 @@ namespace MiWifiRouter
 		{
 			AtualizarStatus("Desligando HotSpot.");
 
-			HotSpot.StopSharing((NetworkInterface)comboRedes.SelectedItem);
+			Hotspot.Stop();
 
 			HabilitarComponentes();
 
@@ -196,26 +162,26 @@ namespace MiWifiRouter
 			button1.Text = "Parar";
 		}
 
-		private bool OptsValidas(WifiShareOpts opts)
+		private bool DadosValidosParaIniciarHotspot()
 		{
 			bool ok = true;
 
-			if (string.IsNullOrEmpty(opts.SSID))
+			if (string.IsNullOrEmpty(Hotspot.Name))
 			{
 				ExibirAlerta("Informe um nome para rede sem fio.");
 				ok = false;
 			}
-			else if (opts.SSID.Split(' ').Length > 1)
+			else if (Hotspot.Name.Split(' ').Length > 1)
 			{
 				ExibirAlerta("O Nome da rede sem fio não pode conter espaços.");
 				ok = false;
 			}
-			if (string.IsNullOrEmpty(opts.Password))
+			if (string.IsNullOrEmpty(Hotspot.Password))
 			{
 				ExibirAlerta("Informe uma senha.");
 				ok = false;
 			}
-			else if (opts.Password.Length < 8)
+			else if (Hotspot.Password.Length < 8)
 			{
 				ExibirAlerta("A senha deve conter pelo menos 8 caracteres.");
 				ok = false;
@@ -238,7 +204,7 @@ namespace MiWifiRouter
 		{
 			_closing = true;
 
-			if (HotSpot.IsSharing)
+			if (Hotspot.Started)
 			{
 				DesabilitarSharing();
 			}
@@ -296,6 +262,20 @@ namespace MiWifiRouter
 			new ConfigurationForm().ShowDialog(this);
 		}
 
+		private void button3_Click(object sender, EventArgs e)
+		{
+			listView1.Items.Clear();
+
+			if (Hotspot.Started)
+			{
+				Hotspot.SearchConnectedDevicesAsync();
+			}
+			else
+			{
+				MessageBox.Show(this, "O Hotspot não foi iniciado!", "Ops...", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+			}
+		}
+
 		private void ExibirIconeNotificacao()
 		{
 			this.Hide();
@@ -303,7 +283,7 @@ namespace MiWifiRouter
 			notifyIcon1.Visible = true;
 			notifyIcon1.ShowBalloonTip(500);
 
-			toolStripMenuItem1.Enabled = HotSpot.IsSharing;
+			toolStripMenuItem1.Enabled = Hotspot.Started;
 		}
 
 		private void ExibirForm()
@@ -316,8 +296,6 @@ namespace MiWifiRouter
 		private void PararHotSpot()
 		{
 			DesabilitarSharing();
-
-			timer.Enabled = false;
 
 			listView1.Items.Clear();
 		}
