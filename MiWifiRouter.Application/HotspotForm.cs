@@ -25,7 +25,7 @@ namespace MiWifiRouter
 		{
 			InitializeComponent();
 
-			this.Text = string.Format("MiWifi Router {0}", Assembly.GetEntryAssembly().GetName().Version.ToString());
+			Text = string.Format("MiWifi Router {0}", Program.GetVersion());
 
 			Hotspot = new Hotspot();
 			Hotspot.OnDeviceFound += Hotspot_DeviceFound;
@@ -41,15 +41,14 @@ namespace MiWifiRouter
 		private void InicializarListViewDispositivos()
 		{
 			listView1.View = View.Tile;
-			listView1.TileSize = new System.Drawing.Size(250, 60);
-
+			listView1.TileSize = new Size(250, 60);
 			listView1.Columns.AddRange(new ColumnHeader[] { new ColumnHeader(), new ColumnHeader(), new ColumnHeader() });
 
 			var imgList = new ImageList();
-			imgList.ImageSize = new System.Drawing.Size(36, 36);
+			imgList.ImageSize = new Size(36, 36);
 
-			Bitmap bmpAndroid = new Bitmap(Image.FromFile(Application.StartupPath + "\\Android.png")); // ImageIndex = 0
-			Bitmap bmpComputer = new Bitmap(Image.FromFile(Application.StartupPath + "\\computer.jpg")); // ImageIndex = 1
+			Bitmap bmpAndroid = new Bitmap(Image.FromFile(Application.StartupPath + "\\android_device.png")); // ImageIndex = 0
+			Bitmap bmpComputer = new Bitmap(Image.FromFile(Application.StartupPath + "\\computer_device.png")); // ImageIndex = 1
 
 			ImageHelper helper = new ImageHelper();
 			helper.AddImageToImageList(imgList, bmpAndroid, "android_device");
@@ -62,22 +61,16 @@ namespace MiWifiRouter
 		{
 			if (!_closing)
 			{
-				this.Invoke(new Action(() =>
+				Invoke(new Action(() =>
 				{
 					bool hasItem = listView1.Items.Cast<ListViewItem>().Any(item => item.SubItems[0].Text == device.Hostname);
 
 					if (!hasItem)
 					{
 						var listViewItem = new ListViewItem(new string[] { device.Hostname, device.IpAddress, device.MacAddress });
+						string hostname = device.Hostname.ToLower();
 
-						if (device.Hostname.ToLower().Contains("android"))
-						{
-							listViewItem.ImageIndex = 0; // Android icon
-						}
-						else
-						{
-							listViewItem.ImageIndex = 1; // Computer icon
-						}
+						listViewItem.ImageIndex = hostname.Contains("android") ? 0 : 1;
 
 						listView1.Items.Add(listViewItem);
 					}
@@ -255,11 +248,6 @@ namespace MiWifiRouter
 		private void sobreToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			new AboutForm().ShowDialog(this);
-		}
-
-		private void configuraçõesToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			new ConfigurationForm().ShowDialog(this);
 		}
 
 		private void button3_Click(object sender, EventArgs e)

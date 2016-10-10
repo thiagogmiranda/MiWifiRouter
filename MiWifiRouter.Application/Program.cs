@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -17,6 +18,11 @@ namespace MiWifiRouter
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 			Application.Run(new HotspotForm());
+		}
+
+		public static string GetVersion() 
+		{
+			return Assembly.GetEntryAssembly().GetName().Version.ToString();
 		}
 	}
 }

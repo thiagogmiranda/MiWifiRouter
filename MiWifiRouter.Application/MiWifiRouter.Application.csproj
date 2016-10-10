@@ -100,12 +100,6 @@
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
     <Compile Include="CommandLine.cs" />
-    <Compile Include="ConfigurationForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ConfigurationForm.Designer.cs">
-      <DependentUpon>ConfigurationForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Device.cs" />
     <Compile Include="Hotspot.cs" />
     <Compile Include="HotspotForm.cs">
@@ -119,12 +113,8 @@
     <Compile Include="NetworkManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WifiShareOpts.cs" />
     <EmbeddedResource Include="AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ConfigurationForm.resx">
-      <DependentUpon>ConfigurationForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="HotspotForm.resx">
       <DependentUpon>HotspotForm.cs</DependentUpon>
@@ -174,13 +164,13 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Android.png">
+    <Content Include="android_device.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="computer.jpg">
+    <Content Include="computer_device.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="donate_button.PNG" />
+    <Content Include="donate_button.png" />
     <Content Include="miwifirouter.ico" />
     <Content Include="miwifirouter.png" />
   </ItemGroup>

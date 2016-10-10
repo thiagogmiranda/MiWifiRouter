@@ -16,19 +16,19 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_3B91786591E746E98A93DA9ACC87BDE1"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_404FDE14628144D49DF9787A156B6A3A"
+        "MsmKey" = "8:_541FDBF88B8C4C7A9DE9C5B9A62C4A9C"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_88903F50DF184427B5524E1BFCAD92EF"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_8AB1942BBE5E4BEB8D1B3DAFC4E8A759"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -139,30 +139,10 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3B91786591E746E98A93DA9ACC87BDE1"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_541FDBF88B8C4C7A9DE9C5B9A62C4A9C"
             {
-            "SourcePath" = "8:..\\MiWifiRouter.Application\\Android.png"
-            "TargetName" = "8:Android.png"
-            "Tag" = "8:"
-            "Folder" = "8:_E156885034F944E58B13D47C278A1468"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_404FDE14628144D49DF9787A156B6A3A"
-            {
-            "SourcePath" = "8:..\\MiWifiRouter.Application\\computer.jpg"
-            "TargetName" = "8:computer.jpg"
+            "SourcePath" = "8:..\\MiWifiRouter.Application\\computer_device.png"
+            "TargetName" = "8:computer_device.png"
             "Tag" = "8:"
             "Folder" = "8:_E156885034F944E58B13D47C278A1468"
             "Condition" = "8:"
@@ -183,6 +163,26 @@
             {
             "SourcePath" = "8:..\\MiWifiRouter.Application\\miwifirouter.ico"
             "TargetName" = "8:miwifirouter.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_E156885034F944E58B13D47C278A1468"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8AB1942BBE5E4BEB8D1B3DAFC4E8A759"
+            {
+            "SourcePath" = "8:..\\MiWifiRouter.Application\\android_device.png"
+            "TargetName" = "8:android_device.png"
             "Tag" = "8:"
             "Folder" = "8:_E156885034F944E58B13D47C278A1468"
             "Condition" = "8:"
@@ -255,15 +255,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:MiWifi Router"
-        "ProductCode" = "8:{BEA8F652-68DC-4B2D-9CC0-F962401735B8}"
-        "PackageCode" = "8:{125674E3-A23D-4D1C-A228-EB255D02B2AB}"
+        "ProductCode" = "8:{2658512B-E756-492C-9D8F-1C72B20D4575}"
+        "PackageCode" = "8:{CEAF7E36-F08E-46B1-8AEC-61EEC1E30647}"
         "UpgradeCode" = "8:{93AB1F6C-6FF4-48E7-8477-19A1DD66E72C}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.2.2"
+        "ProductVersion" = "8:2.0.0"
         "Manufacturer" = "8:Miranda Solutions"
         "ARPHELPTELEPHONE" = "8:5521968248860"
         "ARPHELPLINK" = "8:"

@@ -14,8 +14,18 @@ namespace MiWifiRouter
 	{
 		private static readonly INetSharingManager SharingManager = new NetSharingManager();
 
+		public static bool HostedNetworkIsSuported() 
+		{
+			string result = CommandLine.Execute("netsh wlan show drivers");
+
+			return result.Contains("Rede hospedada compat¡vel: Sim");
+		}
+
 		public static INetConnection EnableHostedNetwork(string ssid, string password)
 		{
+			if (!HostedNetworkIsSuported())
+				throw new Exception("Este computador não têm suporte a criação de redes virtuais hospedadas.");
+
 			CommandLine.ExecuteCommand(string.Format("/C netsh wlan set hostednetwork mode=allow ssid={0} key={1}", ssid, password));
 			CommandLine.ExecuteCommand("/C netsh wlan start hostednetwork");
 
@@ -35,11 +45,20 @@ namespace MiWifiRouter
 			{
 				if (shareType == tagSHARINGCONNECTIONTYPE.ICSSHARINGTYPE_PUBLIC)
 				{
-					INetSharingPublicConnectionCollection cons = SharingManager.get_EnumPublicConnections(tagSHARINGCONNECTION_ENUM_FLAGS.ICSSC_ENABLED);
+					var other = (from INetConnection c 
+						in SharingManager.EnumEveryConnection
+						where SharingManager.get_NetConnectionProps(c).Guid != SharingManager.get_NetConnectionProps(connection).Guid
+							&& GetShareConfiguration(c).SharingConnectionType == tagSHARINGCONNECTIONTYPE.ICSSHARINGTYPE_PUBLIC
+							&& GetShareConfiguration(c).SharingEnabled
+						select c).DefaultIfEmpty(null).FirstOrDefault();
 
-					foreach (INetConnection con in cons)
+					if(other != null) 
 					{
-						DisableShare(con);
+						if(!DisableShare(other))
+						{
+							throw new Exception(string.Format("É necessário desabilitar o compartilhamento de rede em '{0}' para habilitar em '{1}'.",
+								SharingManager.get_NetConnectionProps(other).Name, SharingManager.get_NetConnectionProps(connection).Name));
+						}
 					}
 				}
 

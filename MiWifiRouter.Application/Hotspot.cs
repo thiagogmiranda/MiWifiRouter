@@ -32,15 +32,23 @@ namespace MiWifiRouter
 			if (!Started)
 			{
 				LocalConnection = NetworkManager.GetConnectionById(LocalNetwork.Id);
-				WifiConnection = NetworkManager.EnableHostedNetwork(this.Name, this.Password);
+				WifiConnection = NetworkManager.EnableHostedNetwork(Name, Password);
 
 				if (WifiConnection == null)
 				{
 					throw new Exception("Verifique se o adaptador de rede sem fio está ativado!");
 				}
 
-				NetworkManager.EnableShare(LocalConnection, tagSHARINGCONNECTIONTYPE.ICSSHARINGTYPE_PUBLIC);
-				NetworkManager.EnableShare(WifiConnection, tagSHARINGCONNECTIONTYPE.ICSSHARINGTYPE_PRIVATE);
+				if(NetworkManager.EnableShare(LocalConnection, tagSHARINGCONNECTIONTYPE.ICSSHARINGTYPE_PUBLIC))
+				{
+					NetworkManager.EnableShare(WifiConnection, tagSHARINGCONNECTIONTYPE.ICSSHARINGTYPE_PRIVATE);
+				}
+				else
+				{
+					NetworkManager.DisableHostedNetwork();
+
+					throw new Exception("Não foi possível iniciar o Hotspot! :(");
+				}
 			}
 		}
 
